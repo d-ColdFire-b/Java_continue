@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class DirectoryPersonRepository implements Repository<Person> {
@@ -90,5 +91,20 @@ public class DirectoryPersonRepository implements Repository<Person> {
         }
 
         return personList;
+    }
+
+    private List<Integer> getAllIds() {
+        File[] files = dir.listFiles();
+        List<Integer> fileIds = new ArrayList<>();
+        for (File file : Objects.requireNonNull(files)) { // Objects.requireNonNull - IDEA suggestion
+            fileIds.add(Integer.parseInt(file.getName()));
+        }
+
+        return fileIds;
+    }
+
+    @Override
+    public List<Person> loadAll() {
+        return load(getAllIds());
     }
 }

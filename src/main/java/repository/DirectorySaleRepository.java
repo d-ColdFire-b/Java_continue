@@ -112,14 +112,7 @@ public class DirectorySaleRepository implements Repository<Sale> {
 
     }
 
-    public List<Sale> loadAllByPersonId(int id) throws IOException {
 
-        List<Sale> personsSales = load(getAllIds());
-
-        return personsSales.stream()
-                .filter(x -> x.getPerson().getId() == id)
-                .collect(Collectors.toList());
-    }
 
 
     private List<Integer> getAllIds() {
@@ -128,14 +121,11 @@ public class DirectorySaleRepository implements Repository<Sale> {
         for (File file : Objects.requireNonNull(files)) { // Objects.requireNonNull - IDEA suggestion
             fileIds.add(Integer.parseInt(file.getName()));
         }
-
-//        for (Integer fileId : fileIds) {
-//            System.out.println(fileId);
-//        }
-
         return fileIds;
-
     }
 
-
+    @Override
+    public List<Sale> loadAll() throws IOException {
+        return load(getAllIds());
+    }
 }

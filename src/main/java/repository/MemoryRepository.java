@@ -9,7 +9,6 @@ import java.util.Map;
 public abstract class MemoryRepository<T> implements Repository<T> {
     Map<Integer, T> storage = new HashMap<>();
 
-
     @Override
     public void save(T obj) throws IOException {
         storage.put(getId(obj), obj);
@@ -32,6 +31,11 @@ public abstract class MemoryRepository<T> implements Repository<T> {
         }
 
         return tList;
+    }
+
+    @Override
+    public List<T> loadAll() throws IOException {
+        return new ArrayList<>(storage.values());
     }
 
     abstract int getId(T obj);

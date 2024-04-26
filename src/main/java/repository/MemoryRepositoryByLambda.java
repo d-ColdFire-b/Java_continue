@@ -1,12 +1,14 @@
 package repository;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.function.Function;
 
 public class MemoryRepositoryByLambda<T> extends MemoryRepository<T> {
 
-    Function<T, Integer> getIdLambda; // Я того рот наоброт как это работает? (Если работает)
+    Function<T, Integer> getIdLambda;
 
-    MemoryRepositoryByLambda(Function getIdLambda) {
+    public MemoryRepositoryByLambda(Function getIdLambda) {
         this.getIdLambda = getIdLambda;
     }
 
@@ -14,4 +16,5 @@ public class MemoryRepositoryByLambda<T> extends MemoryRepository<T> {
     int getId(T obj) {
         return getIdLambda.apply(obj);
     }
+
 }

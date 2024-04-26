@@ -83,16 +83,6 @@ public class DirectoryProductRepository implements Repository<Product>{
         return list;
     }
 
-
-    public List<Product> loadAllByMaxPrice (double maxPrice) throws IOException {
-
-        List<Product> allProducts = load(getAllIds());
-
-        return allProducts.stream()
-                .filter(x -> x.getPrice() < maxPrice)
-                .collect(Collectors.toList());
-    }
-
     private List<Integer> getAllIds() {
         File[] files = dir.listFiles();
         List<Integer> fileIds = new ArrayList<>();
@@ -100,10 +90,11 @@ public class DirectoryProductRepository implements Repository<Product>{
             fileIds.add(Integer.parseInt(file.getName()));
         }
 
-//        for (Integer fileId : fileIds) {
-//            System.out.println(fileId);
-//        }
-
         return fileIds;
+    }
+
+    @Override
+    public List<Product> loadAll() throws IOException {
+        return load(getAllIds());
     }
 }

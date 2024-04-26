@@ -12,6 +12,8 @@ public interface Repository<T> {
 
     List<T> load(List<Integer> ids) throws IOException;
 
+    List<T>  loadAll() throws IOException;
+
 
 
 }
