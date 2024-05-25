@@ -1,20 +1,24 @@
 import entity.Person;
-import repository.DirectorySaleRepository;
-
-import javax.swing.Spring;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        LocalDateTime localDateTime = LocalDateTime.now();
-        String nes = localDateTime.toString();
 
-        LocalDateTime notLocal = LocalDateTime.parse(nes);
-        System.out.println(notLocal);
+        System.out.println(Main.class.getResource("/currencies_rates.json"));
+
+
+
+
+
+
+//        LocalDateTime localDateTime = LocalDateTime.now();
+//        String nes = localDateTime.toString();
+//
+//        LocalDateTime notLocal = LocalDateTime.parse(nes);
+//        System.out.println(notLocal);
 
 
 

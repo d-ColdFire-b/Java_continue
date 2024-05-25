@@ -5,6 +5,16 @@ public class Product implements Comparable<Product> {
     int id;
     String name;
     double price;
+    Currency currency;
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
 
     public Product() {
     }
@@ -41,5 +51,10 @@ public class Product implements Comparable<Product> {
     public int compareTo(Product product) {
         return Integer.compare(this.id, product.id);
 
+    }
+
+    @Override
+    public String toString() {
+        return "Id: "+id +" |Name: " + name + " |Price: " + price + " |Currency: " + currency;
     }
 }

@@ -4,15 +4,12 @@ import entity.Person;
 import entity.Sale;
 
 import java.io.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+
 
 public class DirectorySaleRepository implements Repository<Sale> {
 
@@ -53,7 +50,7 @@ public class DirectorySaleRepository implements Repository<Sale> {
             try (PrintWriter writer = new PrintWriter(stream)) {
                 writer.println(sale.getId());
                 writer.println(sale.getTimestamp());
-                writer.println(sale.getAmount());
+//                writer.println(sale.getAmount());
                 Person person = sale.getPerson();
                 writer.println(person.getId());
                 writer.println(person.getName());
@@ -73,7 +70,7 @@ public class DirectorySaleRepository implements Repository<Sale> {
                     sale.setId(scanner.nextInt());
                     scanner.nextLine();
                     sale.setTimestamp(LocalDateTime.parse(scanner.nextLine()));
-                    sale.setAmount(scanner.nextDouble());
+//                    sale.setAmount(scanner.nextDouble());
                     scanner.nextLine();
                     int personId = scanner.nextInt();
                     Repository<Person> personRepository = new DirectoryPersonRepository();
@@ -111,8 +108,6 @@ public class DirectorySaleRepository implements Repository<Sale> {
         return saleList;
 
     }
-
-
 
 
     private List<Integer> getAllIds() {

@@ -1,8 +1,9 @@
 package entity;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -10,23 +11,23 @@ import java.util.TreeMap;
 public class Sale implements Iterable<Product> {
 
     int id;
-    double amount;
+
     Person person;
 
     LocalDateTime timestamp;
+    public Map<Product, Double> products = new TreeMap<>(); // To delete public mod
 
     public Sale(int id, LocalDateTime timestamp) {
         this.id = id;
         this.timestamp = timestamp;
     }
 
-    public Sale (int id){
+    public Sale(int id) {
         this.id = id;
     }
 
     public Sale() {
     }
-    Map<Product, Double> products = new TreeMap<>();
 
     public int getId() {
         return id;
@@ -45,12 +46,26 @@ public class Sale implements Iterable<Product> {
 
     }
 
-    public double getAmount() {
-        return amount;
-    }
+    public Map<Currency, Double> getAmount() {
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+        Map<Currency, Double> amount = new HashMap<>();
+        ArrayList<Currency> currencies = new ArrayList<>();
+        iterator().forEachRemaining(x -> currencies.add(x.getCurrency()));
+
+        for (Currency currency : currencies) {
+            double sum = 0;
+            for (Product product : this) {
+                if (!product.currency.equals(currency)) {
+                    continue;
+                }
+                sum += products.get(product);
+
+            }
+            amount.put(currency,sum);
+
+        }
+
+        return amount;
     }
 
     public Person getPerson() {
@@ -64,7 +79,7 @@ public class Sale implements Iterable<Product> {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        return "Sale id - " + this.id + "| Sale Amount - " + this.amount + "| Sale timestamp - " + formatter.format(this.timestamp) + "| Sale Person id - " + this.person.getId();
+        return "Sale id - " + this.id + "| Sale Amount - " + getAmount() + "| Sale timestamp - " + formatter.format(this.timestamp) + "| Sale Person id - " + this.person.getId();
     }
 
     @Override

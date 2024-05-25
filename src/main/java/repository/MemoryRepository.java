@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class MemoryRepository<T> implements Repository<T> {
-    Map<Integer, T> storage = new HashMap<>();
+    protected Map<Integer, T> storage = new HashMap<>();
 
     @Override
     public void save(T obj) throws IOException {
